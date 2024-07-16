@@ -1,0 +1,50 @@
+pipeline {
+    agent any
+
+    tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "mvn"
+    }
+
+    stages {
+        stage("source"){
+            steps {
+                git url: "https://github.com/anirudhadak2/simpleMaven1.git" , branch: "main"
+        }
+            }
+        stage('clean-compile-code') {
+            steps {
+                // Get some code from a GitHub repository
+
+                // Run Maven on a Unix agent.
+                sh "mvn clean compile"
+            }
+        }
+        stage('test') {
+            steps {
+                // Get some code from a GitHub repository
+
+                // Run Maven on a Unix agent.
+                sh "mvn test"
+            }
+        }
+        stage('package') {
+            steps {
+                // Get some code from a GitHub repository
+
+               // Run Maven on a Unix agent.
+               sh "mvn package"
+            }
+        }
+    
+          stage ('Execute Jar'){
+            steps{
+                sh 'java -jar target/*.jar'
+            }
+        }
+    
+    }
+    
+}
+
+
